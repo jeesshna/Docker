@@ -1,0 +1,44 @@
+Compatablity check:
+$ curl https://raw.githubusercontent.com/docker/docker/master/contrib/check-config.sh > check-config.sh
+$ bash ./check-config.s
+
+
+------- CentoS Fedora RHEL ---------------
+Install though yum Online:
+$ sudo yum install -y yum-utils
+$ sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+$ sudo yum install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+$ sudo systemctl start docker
+$ sudo systemctl enable docker.service
+$ sudo systemctl enable containerd.service
+$ docker compose version
+$ docker --version
+$ docker version
+
+
+Install Using RPM:
+$ sudo yum install /path/to/package.rpm
+$ sudo systemctl start docker
+$ sudo systemctl enable docker.service
+$ sudo systemctl enable containerd.service
+
+
+Install Using Curl:
+$ curl -fsSL https://get.docker.com -o get-docker.sh
+$ sudo sh get-docker.sh
+
+
+Install Using Binary Package:
+
+
+$ sudo systemctl enable docker.service
+$ sudo systemctl enable containerd.service
+
+
+Uninstallation:
+$ sudo yum remove docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-ce-rootless-extras
+
+
+Testing Docker:
+$ sudo docker run hello-world
+
