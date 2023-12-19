@@ -1,0 +1,196 @@
+Download & Install Docker:
+sudo yum -y install yum-utils
+
+sudo mkdir software/Docker -p
+
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+sudo yum install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin --downloadonly --downloaddir=/opt/software/DOCKER/
+
+sudo yum remove docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin --downloadonly --downloaddir=/opt/software/DOCKER/
+
+===================================================================================
+===================================================================================
+The packages you've mentioned are related to Docker, a popular containerization platform. Docker provides a way to package and distribute applications and their dependencies as containers, making it easier to deploy and run applications consistently across different environments. Let's break down each of these packages:
+
+docker-ce (Docker Community Edition):
+
+Docker Community Edition (CE) is the free version of Docker. It includes the core Docker runtime, which allows you to create, run, and manage containers.
+Docker CE is suitable for individual developers and small teams who want to use Docker for containerization without the need for enterprise features or support.
+
+docker-ce-cli (Docker CE Command Line Interface):
+This package provides the Docker command-line interface (CLI) tools, allowing you to interact with Docker containers and images via the command line.
+It complements the Docker CE package by providing the CLI utilities needed to manage Docker containers and images.
+
+containerd.io (containerd):
+Containerd is an essential component of the Docker platform. It is an industry-standard container runtime that manages the low-level container operations.
+Docker uses containerd as its core runtime, responsible for container execution, image management, and networking. You typically install containerd alongside Docker for its functionality.
+
+docker-buildx-plugin (Docker Buildx):
+Docker Buildx is an extended version of the Docker build command that adds support for building multi-platform images.
+It is useful when you want to build container images that can run on different processor architectures and operating systems.
+The docker-buildx-plugin package could be a plugin or extension to Docker that provides Buildx functionality.
+
+
+docker-compose-plugin (Docker Compose):
+Docker Compose is a tool for defining and running multi-container applications. It allows you to define complex application stacks in a declarative YAML file.
+The docker-compose-plugin might refer to a Docker plugin or extension related to Docker Compose, potentially enhancing its capabilities or integration with Docker.
+Please note that the availability and packaging of these components can vary depending on your operating system and the specific Docker distribution you're using. Docker has gone through several changes and updates over the years, so the specific package names and components may differ based on the version and distribution you're working with. It's essential to refer to the documentation and installation guides provided by Docker for your specific environment to ensure you're using the appropriate packages and tools.
+===================================================================================
+===================================================================================
+
+
+Additonal Installation / Download:
+
+yum list docker-ce --showduplicates | sort –r
+sudo yum install docker-ce-
+sudo systemctl start docker
+
+sudo chown student:student /opt /var/run/docker* -R 
+
+Getting WAR Files:
+
+https://github.com/ComputerTrainer0/EAR/blob/affbc97ebe26ad597616d151ecb63569744cefaa/Library_counter.war
+https://github.com/ComputerTrainer0/EAR/blob/affbc97ebe26ad597616d151ecb63569744cefaa/Library_chart.ear
+
+===================================================================================
+===================================================================================
+
+
+docker image ls
+
+docker image build -t first_image .
+===================================================================================
+===================================================================================
+OPTIONS: These are various options and flags you can use to customize the build process. Some common options include:
+-t or --tag: This option allows you to specify a name and optional tag for the resulting image. For example: -t myapp:latest.
+-f or --file: Use this option to specify the name and location of the Dockerfile to use if it's not named Dockerfile or is located in a different directory. For example: -f /path/to/Dockerfile.
+--build-arg: This option allows you to pass build-time variables to the Dockerfile. For example: --build-arg VAR_NAME=value.
+PATH | URL | -: This specifies the location of the context for the build. The context is the directory that contains the Dockerfile and any other files needed during the build process. You can specify a local directory path, a URL, or use - to read the build context from standard input.
+===================================================================================
+===================================================================================
+
+
+docker ps –a
+===================================================================================
+===================================================================================
+In this example:
+
+CONTAINER ID is a unique identifier for each container.
+IMAGE specifies the Docker image from which the container was created.
+COMMAND shows the command that the container is running.
+CREATED indicates when the container was created.
+STATUS displays the current status of the container (e.g., "Up" for running containers or "Exited" for stopped containers).
+PORTS lists any exposed ports, if applicable.
+NAMES shows the names of the containers.
+===================================================================================
+===================================================================================
+docker search tomcat
+=============================Creating a dockerfile
+$ cat Dockerfile
+FROM tomcat:8.0-alpine
+LABEL maintainer=”yourname@example.com”
+ADD sample.war /usr/local/tomcat/webapps/
+EXPOSE 8080
+CMD [“catalina.sh”, “run”]
+===================================================================================
+===================================================================================
+
+docker run -it --ulimit nofile=122880:122880 -m 3G --rm tomcat:8.0
+
+===================================================================================
+===================================================================================
+HTTP Server configuration:
+
+cat Dockerfile
+FROM dokken/centos-stream-9
+LABEL maintainer=”yourname@example.com”
+ADD centos.repo /etc/yum.repos.d/
+ADD centos-addons.repo /etc/yum.repos.d/
+RUN yum -y install apr apr-util
+RUN mkdir -p /opt/content/example/
+ADD content.tar /opt/content/
+ADD httpd.tar.gz /opt/
+#CMD [“/opt/httpd/bin/apachectl”,"-D","FOREGROUND"]
+CMD ["/bin/bash", "-c", "/opt/httpd/bin/apachectl start"]
+#CMD ["/opt/httpd/bin/apachectl", "run"]
+
+===================================================================================
+Installation of CRI-O
+===================================================================================
+
+yum -y install git
+git clone https://github.com/ComputerTrainer0/Docker/
+
+docker image build -t apache_first . 
+docker run -it --entrypoint /bin/bash apache_first
+
+cp /etc/yum.repos.d/* .
+
+Download & Install CRI-O:
+sudo curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/CentOS_8/devel:kubic:libcontainers:stable.repo
+sudo curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:$VERSION.repo https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.24:/1.24.6/CentOS_8/devel:kubic:libcontainers:stable:cri-o:1.24:1.24.6.repo
+
+sudo yum install cri-o cri-tools --downloadonly --downloaddir=/opt/software/CRI-O/
+
+===================================================================================
+Installation of Kube
+==================================================================================
+
+sudo vi /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
+        https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+		
+		
+		
+yum install -y kubelet kubeadm kubectl
+
+systemctl start docker && systemctl enable docker
+systemctl start kubelet && systemctl enable kubelet
+
+
+===================================================================================
+==================================================================================
+Setting Up Kube
+kubeadm init --apiserver-advertise-address=10.0.15.10 --pod-network-cidr=10.244.0.0/16
+
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+
+kubectl get nodes
+kubectl get pods --all-namespaces
+
+
+==================================================================================
+==================================================================================
+
+
+kubeadm join 10.0.15.10:6443 --token vzau5v.vjiqyxq26lzsf28e --discovery-token-ca-cert-hash sha256:e6d046ba34ee03e7d55e1f5ac6d2de09fd6d7e6959d16782ef0778794b94c61e
+
+kubeadm join 10.0.15.10:6443 --token vzau5v.vjiqyxq26lzsf28e --discovery-token-ca-cert-hash sha256:e6d046ba34ee03e7d55e1f5ac6d2de09fd6d7e6959d16782ef0778794b94c61e
+
+kubectl get nodes
+kubectl get pods --all-namespaces
+
+kubectl create deployment nginx --image=nginx
+
+kubectl describe deployment nginx
+
+kubectl create service nodeport nginx --tcp=80:80
+
+kubectl get pods
+kubectl get svc
+
+curl node01:30691
+
+curl node02:30691
+
