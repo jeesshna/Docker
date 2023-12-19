@@ -1,5 +1,8 @@
 Connect me @ online.trainer.1212@gmail.com
 
+Udemy Page: https://www.udemy.com/user/sivas-instruction/
+Youtube Page: https://www.youtube.com/@Online_instruction
+
 All softwars Opensource avaialble.
 
 All My trainings on UDMEY for a high discounted price:
